@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PORTFOLIO · 作品集</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --wine:   #6B1A1A;
+  --wine2:  #8B2020;
+  --wine3:  #4a1010;
+  --sky:    #B8D8E8;
+  --sky2:   #cce4f0;
+  --cream:  #F5EDD8;
+  --cream2: #EDE0C4;
+  --pink:   #F4A7B0;
+  --pink2:  #ffb3c6;
+  --yellow: #F5C842;
+  --blue-w: #7BAFC4;
+  --ink:    #2e1a0e;
+  --muted:  #8a7060;
+  --white:  #FFFDF8;
+  --accent: #c8f04e;
+  --font-hand: 'Caveat', cursive;
+  --font-body: 'Noto Sans SC', sans-serif;
+  --font-title: 'Syne', sans-serif;
+  --radius: 10px;
+  --radius-lg: 18px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+/* ══════════════════════════════
+   HERO — house cover
+══════════════════════════════ */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 0;
+}
+
+/* Sky */
+.hero-sky {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 52%;
+  background: var(--sky);
+  z-index: 0;
+  overflow: hidden;
+}
+/* Vertical stripes like reference */
+.hero-sky::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0, transparent 38px,
+    rgba(255,255,255,0.28) 38px, rgba(255,255,255,0.28) 40px
+  );
+}
+
+/* Year badge top-left */
+.year-badge-hero {
+  position: absolute;
+  top: 1.4rem;
+  left: 2rem;
+  z-index: 10;
+  font-family: var(--font-hand);
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  font-weight: 700;
+  color: var(--wine);
+  line-height: 1;
+  text-shadow: 3px 3px 0 rgba(107,26,26,0.25);
+  /* Wavy look */
+  letter-spacing: -0.02em;
+}
+/* Cloud puff behind year */
+.year-badge-hero::before {
+  content: '';
+  position: absolute;
+  inset: -0.5rem -0.8rem;
+  background: white;
+  border-radius: 50% 40% 50% 40%;
+  z-index: -1;
+  opacity: 0.85;
+}
+
+/* Info top-right */
+.hero-info {
+  position: absolute;
+  top: 1.2rem;
+  right: 2rem;
+  z-index: 10;
+  text-align: right;
+  font-family: var(--font-hand);
+  font-size: clamp(0.85rem, 2vw, 1.1rem);
+  font-weight: 700;
+  color: var(--wine);
+  line-height: 1.5;
+}
+
+/* House wrapper - bottom half */
+.house-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* House SVG */
+.house-svg {
+  display: block;
+  width: 100%;
+}
+
+/* Big PORTFOLIO text inside house body */
+.portfolio-text-wrap {
+  position: absolute;
+  bottom: 22%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  width: 85%;
+  text-align: center;
+  pointer-events: none;
+}
+
+.portfolio-big {
+  font-family: var(--font-hand);
+  font-size: clamp(3rem, 10vw, 7.5rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  /* Rough shadow */
+  text-shadow:
+    3px 3px 0 rgba(0,0,0,0.3),
+    -1px -1px 0 rgba(0,0,0,0.1);
+  /* Slight rotation like reference */
+  transform: rotate(-1.5deg);
+  display: inline-block;
+}
+
+.hero-tagline {
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  font-family: var(--font-hand);
+  font-size: clamp(0.75rem, 2vw, 1rem);
+  color: rgba(255,240,230,0.7);
+  white-space: nowrap;
+  letter-spacing: 0.08em;
+}
+
+/* Scroll down hint */
+.scroll-hint {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  font-family: var(--font-hand);
+  font-size: 0.9rem;
+  color: var(--cream);
+  animation: bob 1.8s ease-in-out infinite;
+  cursor: pointer;
+  white-space: nowrap;
+}
+@keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+/* ══════════════════════════════
+   HEADER (sticky after scroll)
+══════════════════════════════ */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 2rem;
+  background: rgba(107,26,26,0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid var(--wine3);
+}
+
+.logo {
+  font-family: var(--font-hand);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+.logo-dot { color: var(--yellow); font-size: 1.4rem; }
+
+nav { display: flex; gap: 1.5rem; align-items: center; }
+nav a {
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: rgba(255,240,230,0.7);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+nav a:hover { color: var(--white); }
+
+.btn-add {
+  background: var(--yellow);
+  color: var(--wine3);
+  border: none;
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+  font-family: var(--font-hand);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.15);
+}
+.btn-add:hover { opacity: 0.88; transform: scale(1.03); }
+
+/* ══════════════════════════════
+   FILTER SECTION
+══════════════════════════════ */
+.filter-section {
+  background: var(--cream2);
+  padding: 1.5rem 2rem;
+  border-bottom: 2px solid rgba(107,26,26,0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.filter-label {
+  font-family: var(--font-hand);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--muted);
+  min-width: 38px;
+}
+
+.filter-btn {
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  border: 2px solid rgba(107,26,26,0.2);
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-hand);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+.filter-btn:hover { border-color: var(--wine); color: var(--wine); }
+.filter-btn.active {
+  background: var(--wine);
+  border-color: var(--wine);
+  color: var(--white);
+  font-weight: 700;
+}
+
+/* ══════════════════════════════
+   GRID SECTION
+══════════════════════════════ */
+.grid-section {
+  padding: 2.5rem 2rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.grid-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.grid-count {
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: var(--muted);
+}
+.grid-count span { color: var(--wine); font-weight: 700; }
+
+.view-toggle { display: flex; gap: 0.4rem; }
+.view-btn {
+  background: transparent;
+  border: 2px solid rgba(107,26,26,0.2);
+  color: var(--muted);
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.18s;
+}
+.view-btn.active, .view-btn:hover {
+  border-color: var(--wine);
+  color: var(--wine);
+}
+
+/* PORTFOLIO GRID */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1.5rem;
+}
+.portfolio-grid.list-view { grid-template-columns: 1fr; }
+
+/* CARD */
+.card {
+  background: var(--white);
+  border: 2px solid rgba(107,26,26,0.12);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform 0.22s, box-shadow 0.22s;
+  position: relative;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 32px rgba(107,26,26,0.15);
+}
+
+/* Thumb */
+.card-thumb {
+  width: 100%;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  position: relative;
+  background: var(--cream2);
+  cursor: pointer;
+}
+.card-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s;
+}
+.card:hover .card-thumb img { transform: scale(1.04); }
+
+/* Thumb placeholder when no image */
+.thumb-placeholder {
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.thumb-placeholder:hover { background: var(--cream); }
+.thumb-initial {
+  font-family: var(--font-hand);
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: rgba(107,26,26,0.25);
+  line-height: 1;
+}
+.thumb-upload-hint {
+  font-family: var(--font-hand);
+  font-size: 0.8rem;
+  color: rgba(107,26,26,0.35);
+}
+
+/* Upload overlay on hover */
+.thumb-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(107,26,26,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+.card-thumb:hover .thumb-overlay { opacity: 1; }
+.thumb-overlay span {
+  font-family: var(--font-hand);
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: rgba(0,0,0,0.3);
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+}
+
+/* Card body */
+.card-body { padding: 1rem 1.1rem 0.6rem; }
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-family: var(--font-hand);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.15rem 0.65rem;
+  border-radius: 999px;
+  border: 1.5px solid;
+}
+.cat-brand       { background:#fce4ec; color:#8b2020; border-color:#f4a7b0; }
+.cat-ux          { background:#fff3e0; color:#7a4500; border-color:#ffcc80; }
+.cat-motion      { background:#ede7f6; color:#4a235a; border-color:#ce93d8; }
+.cat-print       { background:#e3f2fd; color:#0d47a1; border-color:#90caf9; }
+.cat-illustration{ background:#e8f5e9; color:#1b5e20; border-color:#a5d6a7; }
+.cat-packaging   { background:#fff8e1; color:#6d4c00; border-color:#ffe082; }
+.cat-ip          { background:#fce4ec; color:#880e4f; border-color:#f48fb1; }
+.cat-other       { background:#f5f5f5; color:#555; border-color:#ccc; }
+
+.year-badge {
+  font-family: var(--font-hand);
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-left: auto;
+}
+
+.card h3 {
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.3rem;
+  line-height: 1.3;
+}
+.card p {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.card-footer {
+  padding: 0.7rem 1.1rem;
+  border-top: 1.5px dashed rgba(107,26,26,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-hand);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.card-link {
+  color: var(--wine);
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.18s;
+}
+.card-link:hover { opacity: 0.7; }
+
+/* List view */
+.list-view .card { display: flex; align-items: stretch; }
+.list-view .card-thumb { width: 200px; min-width: 200px; aspect-ratio: unset; flex-shrink: 0; }
+.list-view .card-content { flex:1; display:flex; flex-direction:column; }
+.list-view .card-body { flex:1; }
+
+/* Year divider */
+.year-divider {
+  grid-column: 1/-1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0 0.25rem;
+}
+.year-divider-text {
+  font-family: var(--font-hand);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--wine);
+  white-space: nowrap;
+}
+.year-divider-line {
+  flex: 1;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, rgba(107,26,26,0.25) 0, rgba(107,26,26,0.25) 6px, transparent 6px, transparent 12px);
+}
+
+/* Empty */
+.empty {
+  grid-column: 1/-1;
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--muted);
+}
+.empty h3 { font-family:var(--font-hand); font-size:1.3rem; color:var(--ink); margin-bottom:0.4rem; }
+
+/* ══════════════════════════════
+   MODAL
+══════════════════════════════ */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(46,26,14,0.55);
+  backdrop-filter: blur(6px);
+  z-index: 500;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s;
+}
+.modal-overlay.open { opacity:1; pointer-events:all; }
+
+.modal {
+  background: var(--white);
+  border: 2.5px solid rgba(107,26,26,0.3);
+  border-radius: var(--radius-lg);
+  width: 100%; max-width: 560px;
+  max-height: 90vh; overflow-y: auto;
+  box-shadow: 6px 8px 0 rgba(107,26,26,0.12);
+  transform: translateY(18px) scale(0.97);
+  transition: transform 0.25s;
+}
+.modal-overlay.open .modal { transform: none; }
+
+.modal-header {
+  padding: 1.4rem 1.5rem 0;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+.modal-title {
+  font-family: var(--font-hand);
+  font-size: 1.5rem; font-weight: 700;
+  color: var(--wine);
+}
+.modal-close {
+  background: var(--cream2); border: 2px solid rgba(107,26,26,0.2);
+  color: var(--wine3); width:32px; height:32px; border-radius:50%;
+  cursor:pointer; font-size:0.9rem; font-weight:700;
+  display:flex; align-items:center; justify-content:center;
+  transition: background 0.15s;
+}
+.modal-close:hover { background: var(--pink2); }
+
+.modal-body { padding: 0 1.5rem 1.5rem; }
+.form-group { margin-bottom: 1.1rem; }
+
+label {
+  display: block;
+  font-family: var(--font-hand);
+  font-size: 0.92rem; color: var(--wine3);
+  margin-bottom: 0.35rem; font-weight: 600;
+}
+
+input[type=text], input[type=url], select, textarea {
+  width: 100%;
+  background: var(--cream);
+  border: 2px solid rgba(107,26,26,0.18);
+  border-radius: 8px;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  padding: 0.6rem 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+input:focus, select:focus, textarea:focus { border-color: var(--wine); }
+select option { background: white; }
+textarea { resize: vertical; min-height: 72px; }
+
+/* Image upload area in modal */
+.img-upload-area {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border: 2.5px dashed rgba(107,26,26,0.3);
+  border-radius: 10px;
+  background: var(--cream);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  transition: border-color 0.2s, background 0.2s;
+}
+.img-upload-area:hover { border-color: var(--wine); background: var(--cream2); }
+.img-upload-area img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+}
+.img-upload-area .upload-icon {
+  font-size: 2rem;
+  color: rgba(107,26,26,0.3);
+  pointer-events: none;
+  z-index: 1;
+}
+.img-upload-area .upload-text {
+  font-family: var(--font-hand);
+  font-size: 0.85rem;
+  color: rgba(107,26,26,0.45);
+  margin-top: 0.4rem;
+  pointer-events: none;
+  z-index: 1;
+}
+.img-upload-area .img-overlay {
+  position: absolute; inset: 0;
+  background: rgba(107,26,26,0.5);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.2s;
+  z-index: 2;
+}
+.img-upload-area:hover .img-overlay { opacity: 1; }
+.img-overlay span {
+  font-family: var(--font-hand);
+  color: white; font-size: 0.9rem;
+  background: rgba(0,0,0,0.35);
+  padding: 0.3rem 0.75rem; border-radius: 999px;
+}
+
+/* Color picker */
+.color-picker-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.45rem;
+}
+.color-swatch {
+  width: 100%; aspect-ratio:1;
+  border-radius: 8px;
+  border: 2.5px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s;
+}
+.color-swatch.selected { border-color: var(--wine3); transform: scale(1.12); }
+
+.modal-actions {
+  display: flex; gap: 0.75rem; justify-content: flex-end; padding-top: 0.5rem;
+}
+.btn-cancel {
+  background: transparent; border: 2px solid rgba(107,26,26,0.2);
+  color: var(--muted); padding: 0.5rem 1.1rem; border-radius: 999px;
+  font-family: var(--font-hand); font-size: 0.95rem; cursor: pointer;
+  transition: all 0.18s;
+}
+.btn-cancel:hover { border-color: var(--wine); color: var(--wine); }
+.btn-submit {
+  background: var(--wine); color: var(--white);
+  border: none; padding: 0.5rem 1.4rem; border-radius: 999px;
+  font-family: var(--font-hand); font-size: 0.95rem; font-weight: 700;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 rgba(107,26,26,0.3);
+  transition: opacity 0.18s;
+}
+.btn-submit:hover { opacity: 0.85; }
+
+/* Footer */
+footer {
+  background: var(--wine3);
+  padding: 2rem clamp(1.5rem,5vw,4rem);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+  border-top: 3px solid var(--wine);
+}
+footer p { font-family: var(--font-hand); font-size: 0.9rem; color: rgba(255,240,220,0.6); }
+
+/* Responsive */
+@media (max-width: 640px) {
+  nav { display: none; }
+  .portfolio-grid { grid-template-columns: 1fr; }
+  .list-view .card { flex-direction: column; }
+  .list-view .card-thumb { width:100%; aspect-ratio:16/10; min-width:unset; }
+  .year-badge-hero { font-size: 2rem; }
+  .portfolio-big { font-size: 3rem; }
+  .grid-section { padding: 2rem 1rem 3rem; }
+  .filter-section { padding: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HERO COVER ══ -->
+<section class="hero" id="hero">
+
+  <!-- Sky -->
+  <div class="hero-sky"></div>
+
+  <!-- 2025 badge -->
+  <div class="year-badge-hero">2025</div>
+
+  <!-- Top-right info -->
+  <div class="hero-info">
+    PORTFOLIO<br>
+    2025
+  </div>
+
+  <!-- House scene -->
+  <div class="house-wrapper">
+    <svg class="house-svg" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <!-- === CHIMNEY === -->
+      <rect x="168" y="60" width="52" height="88" rx="4" fill="#5A1515" stroke="#3d0d0d" stroke-width="2"/>
+      <rect x="160" y="80" width="68" height="18" rx="3" fill="#6B1A1A"/>
+      <!-- smoke puffs -->
+      <circle cx="193" cy="50" r="11" fill="white" opacity="0.7"/>
+      <circle cx="206" cy="38" r="9" fill="white" opacity="0.5"/>
+      <circle cx="218" cy="28" r="7" fill="white" opacity="0.35"/>
+
+      <!-- === ROOF === -->
+      <!-- Main dark wine roof -->
+      <polygon points="50,230 450,55 850,230" fill="#6B1A1A" stroke="#4a1010" stroke-width="3"/>
+      <!-- Roof highlight strip -->
+      <polygon points="50,230 450,55 465,65 65,233" fill="rgba(255,255,255,0.06)"/>
+      <!-- Roof edge beam -->
+      <rect x="38" y="224" width="824" height="24" rx="5" fill="#4a1010"/>
+
+      <!-- === HOUSE BODY === -->
+      <rect x="80" y="244" width="740" height="270" rx="8" fill="#7a1f1f"/>
+
+      <!-- === LEFT WINDOW === -->
+      <rect x="130" y="275" width="160" height="120" rx="8" fill="#FFE8D6" stroke="#4a1010" stroke-width="2.5"/>
+      <line x1="210" y1="275" x2="210" y2="395" stroke="#4a1010" stroke-width="2"/>
+      <line x1="130" y1="335" x2="290" y2="335" stroke="#4a1010" stroke-width="2"/>
+      <!-- curtains -->
+      <path d="M130,275 Q148,305 130,340" stroke="#F4A7B0" stroke-width="9" stroke-linecap="round" fill="none"/>
+      <path d="M290,275 Q272,305 290,340" stroke="#F4A7B0" stroke-width="9" stroke-linecap="round" fill="none"/>
+      <!-- lamp -->
+      <ellipse cx="210" cy="355" rx="14" ry="6" fill="#F4A7B0" opacity="0.5"/>
+      <rect x="207" y="330" width="6" height="25" fill="#D4A373"/>
+      <ellipse cx="210" cy="328" rx="20" ry="8" fill="#FFDDA8" opacity="0.7"/>
+      <!-- sofa hint -->
+      <rect x="145" y="370" width="70" height="22" rx="8" fill="#F4A7B0" opacity="0.5"/>
+      <rect x="140" y="362" width="12" height="30" rx="4" fill="#F4A7B0" opacity="0.6"/>
+      <rect x="215" y="362" width="12" height="30" rx="4" fill="#F4A7B0" opacity="0.6"/>
+
+      <!-- === RIGHT WINDOW === -->
+      <rect x="610" y="275" width="160" height="120" rx="8" fill="#FFE8D6" stroke="#4a1010" stroke-width="2.5"/>
+      <line x1="690" y1="275" x2="690" y2="395" stroke="#4a1010" stroke-width="2"/>
+      <line x1="610" y1="335" x2="770" y2="335" stroke="#4a1010" stroke-width="2"/>
+      <!-- books on sill -->
+      <rect x="616" y="376" width="14" height="19" fill="#7BAFC4" opacity="0.9"/>
+      <rect x="631" y="371" width="14" height="24" fill="#F5C842" opacity="0.9"/>
+      <rect x="646" y="379" width="14" height="16" fill="#9ed6a8" opacity="0.9"/>
+      <rect x="661" y="374" width="14" height="21" fill="#F4A7B0" opacity="0.9"/>
+      <!-- plant -->
+      <rect x="740" y="365" width="8" height="16" fill="#D4A373"/>
+      <ellipse cx="744" cy="358" rx="14" ry="11" fill="#9ed6a8" opacity="0.8"/>
+      <ellipse cx="736" cy="362" rx="10" ry="8" fill="#7bbf7b" opacity="0.6"/>
+
+      <!-- === DOOR === -->
+      <rect x="380" y="335" width="140" height="179" rx="6" fill="#4a1010"/>
+      <rect x="391" y="345" width="118" height="162" rx="5" fill="#5a1515"/>
+      <!-- door arch -->
+      <path d="M380,338 Q450,305 520,338" fill="#4a1010"/>
+      <!-- door handle -->
+      <circle cx="502" cy="425" r="6" fill="#D4A373"/>
+      <rect x="499" y="425" width="6" height="10" rx="3" fill="#C4943A"/>
+
+      <!-- === THINKING PERSON IN LEFT WINDOW === -->
+      <g transform="translate(195,290)">
+        <!-- body -->
+        <rect x="-10" y="10" width="20" height="25" rx="5" fill="#FFB3C6"/>
+        <!-- head -->
+        <circle cx="0" cy="3" r="13" fill="#FDBCB4"/>
+        <!-- hair -->
+        <path d="M-12,-5 Q0,-18 12,-5 Q10,3 0,3 Q-10,3 -12,-5Z" fill="#4a2a14"/>
+        <!-- thinking arm -->
+        <line x1="10" y1="20" x2="22" y2="28" stroke="#FDBCB4" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="24" cy="28" r="7" fill="#FDBCB4"/>
+        <!-- thought bubbles -->
+        <circle cx="34" cy="14" r="3" fill="#D4A373" opacity="0.6"/>
+        <circle cx="42" cy="5" r="4.5" fill="#D4A373" opacity="0.5"/>
+        <circle cx="52" cy="-5" r="6" fill="#D4A373" opacity="0.4"/>
+      </g>
+
+      <!-- === DECORATIVE STARS === -->
+      <text x="72" y="165" font-size="22" fill="#F5C842" opacity="0.9" font-family="sans-serif">✦</text>
+      <text x="810" y="145" font-size="16" fill="#F5C842" opacity="0.7" font-family="sans-serif">✦</text>
+      <text x="55" y="205" font-size="12" fill="#F5C842" opacity="0.5" font-family="sans-serif">·</text>
+      <text x="830" y="195" font-size="10" fill="#F5C842" opacity="0.5" font-family="sans-serif">·</text>
+
+      <!-- Ground -->
+      <rect x="0" y="508" width="900" height="12" rx="0" fill="rgba(107,26,26,0.3)"/>
+    </svg>
+
+    <!-- Big PORTFOLIO text overlaid on house body -->
+    <div class="portfolio-text-wrap">
+      <span class="portfolio-big">PORTFOLIO</span>
+    </div>
+    <div class="hero-tagline">Designed with ♥ · 2025</div>
+  </div>
+
+  <div class="scroll-hint" onclick="document.getElementById('topbar').scrollIntoView({behavior:'smooth'})">
+    ↓ 滑下来看作品
+  </div>
+</section>
+
+<!-- ══ STICKY TOPBAR ══ -->
+<header class="topbar" id="topbar">
+  <a class="logo" href="#topbar">🏠<span style="margin-left:0.3rem">作品集</span><span class="logo-dot">·</span></a>
+  <nav>
+    <a href="#topbar">作品</a>
+    <a href="#">关于</a>
+  </nav>
+  <button class="btn-add" onclick="openModal()">＋ 添加作品</button>
+</header>
+
+<!-- ══ FILTERS ══ -->
+<section class="filter-section">
+  <div class="filter-row">
+    <span class="filter-label">年份</span>
+    <div id="year-filters" style="display:flex;gap:0.5rem;flex-wrap:wrap"></div>
+  </div>
+  <div class="filter-row">
+    <span class="filter-label">类目</span>
+    <div id="cat-filters" style="display:flex;gap:0.5rem;flex-wrap:wrap"></div>
+  </div>
+</section>
+
+<!-- ══ GRID ══ -->
+<section class="grid-section" id="work">
+  <div class="grid-header">
+    <p class="grid-count">共 <span id="count-display">0</span> 件作品</p>
+    <div class="view-toggle">
+      <button class="view-btn active" id="btn-grid" onclick="setView('grid')" title="网格">▦</button>
+      <button class="view-btn" id="btn-list" onclick="setView('list')" title="列表">☰</button>
+    </div>
+  </div>
+  <div class="portfolio-grid" id="portfolio-grid"></div>
+</section>
+
+<footer>
+  <p>© 2025 作品集 · 用心记录每一件作品</p>
+  <p>持续更新中 ✦</p>
+</footer>
+
+<!-- ══ ADD WORK MODAL ══ -->
+<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <p class="modal-title">✏️ 添加新作品</p>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- Image upload -->
+      <div class="form-group">
+        <label>封面图片</label>
+        <div class="img-upload-area" id="modal-upload-area" onclick="triggerUpload()">
+          <span class="upload-icon">🖼</span>
+          <span class="upload-text">点击选择图片（JPG / PNG）</span>
+          <div class="img-overlay"><span>重新选择</span></div>
+        </div>
+        <input type="file" id="img-file-input" accept="image/*" style="display:none" onchange="handleImageSelect(event)">
+      </div>
+
+      <div class="form-group">
+        <label>作品名称 *</label>
+        <input type="text" id="f-title" placeholder="例：品牌视觉系统设计">
+      </div>
+      <div class="form-group">
+        <label>简介</label>
+        <textarea id="f-desc" placeholder="简短描述这件作品的背景与目标…"></textarea>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+        <div class="form-group">
+          <label>类目 *</label>
+          <select id="f-cat">
+            <option value="brand">品牌设计</option>
+            <option value="illustration">插画</option>
+            <option value="packaging">包装设计</option>
+            <option value="ip">IP形象</option>
+            <option value="ux">UI/UX</option>
+            <option value="motion">动效</option>
+            <option value="print">印刷物料</option>
+            <option value="other">其他</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>年份 *</label>
+          <select id="f-year"></select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>项目链接（可选）</label>
+        <input type="url" id="f-link" placeholder="https://…">
+      </div>
+      <div class="form-group">
+        <label>无图片时的背景色</label>
+        <div class="color-picker-row" id="color-picker"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeModal()">取消</button>
+        <button class="btn-submit" onclick="addWork()">添加作品 ✦</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ IMAGE MODAL (click card thumb) ══ -->
+<div class="modal-overlay" id="img-modal" onclick="closeImgModal(event)">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header">
+      <p class="modal-title" id="img-modal-title">更换封面图片</p>
+      <button class="modal-close" onclick="document.getElementById('img-modal').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="img-upload-area" id="img-modal-area" onclick="triggerCardUpload()">
+        <span class="upload-icon">🖼</span>
+        <span class="upload-text">点击选择图片（JPG / PNG）</span>
+        <div class="img-overlay"><span>重新选择</span></div>
+      </div>
+      <input type="file" id="card-img-input" accept="image/*" style="display:none" onchange="handleCardImageSelect(event)">
+      <div class="modal-actions" style="margin-top:1rem">
+        <button class="btn-cancel" onclick="document.getElementById('img-modal').classList.remove('open')">取消</button>
+        <button class="btn-submit" onclick="saveCardImage()">保存图片 ✦</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Data ──
+const COLORS = [
+  {bg:'#f9e8e8', fg:'#8B2020'},
+  {bg:'#fff3e0', fg:'#7a4500'},
+  {bg:'#e8f5e9', fg:'#1b5e20'},
+  {bg:'#e3f2fd', fg:'#0d47a1'},
+  {bg:'#ede7f6', fg:'#4a235a'},
+  {bg:'#fff8e1', fg:'#6d4c00'},
+];
+
+const CATS = {
+  brand:       { label:'品牌设计',  cls:'cat-brand' },
+  illustration:{ label:'插画',      cls:'cat-illustration' },
+  packaging:   { label:'包装设计',  cls:'cat-packaging' },
+  ip:          { label:'IP形象',    cls:'cat-ip' },
+  ux:          { label:'UI/UX',     cls:'cat-ux' },
+  motion:      { label:'动效',      cls:'cat-motion' },
+  print:       { label:'印刷物料', cls:'cat-print' },
+  other:       { label:'其他',      cls:'cat-other' },
+};
+
+let works = [
+  { id:1, title:'木曜品牌系统', desc:'为一家日式咖啡品牌建立完整的视觉识别体系，涵盖标志、色彩、字体及应用延伸。', cat:'brand', year:2024, link:'', color:0, img:'' },
+  { id:2, title:'音乐 App 界面设计', desc:'探索沉浸式音乐体验，聚焦深色主题与流畅手势交互。', cat:'ux', year:2024, link:'', color:3, img:'' },
+  { id:3, title:'城市涌动开幕片头', desc:'受城市夜景启发，以粒子流动呈现城市活力的动态影片。', cat:'motion', year:2023, link:'', color:4, img:'' },
+  { id:4, title:'自然系香氛包装', desc:'围绕"山间清晨"主题展开的系列包装设计，手工纸与植物印刷工艺结合。', cat:'packaging', year:2023, link:'', color:1, img:'' },
+  { id:5, title:'二十四节气插画', desc:'以现代笔触重新诠释传统节气意象，共二十四幅系列插画。', cat:'illustration', year:2022, link:'', color:2, img:'' },
+  { id:6, title:'野火咖啡品牌', desc:'独立咖啡馆品牌从零开始的全套设计，包含周边与空间延伸。', cat:'brand', year:2022, link:'', color:0, img:'' },
+];
+let nextId = 7;
+let filterYear = 'all';
+let filterCat = 'all';
+let selectedColor = 0;
+let viewMode = 'grid';
+let pendingImg = '';      // base64 for new work modal
+let editingCardId = null; // which card is being edited
+let pendingCardImg = '';  // base64 for card image modal
+
+// ── Year select ──
+function buildYearSelect() {
+  const sel = document.getElementById('f-year');
+  sel.innerHTML = '';
+  const y = new Date().getFullYear();
+  for (let i = y; i >= y-10; i--) sel.innerHTML += `<option value="${i}">${i}</option>`;
+}
+
+// ── Color picker ──
+function buildColorPicker() {
+  document.getElementById('color-picker').innerHTML = COLORS.map((c, i) =>
+    `<div class="color-swatch${i===selectedColor?' selected':''}"
+      style="background:${c.bg};border-color:${i===selectedColor?c.fg:'transparent'}"
+      onclick="selectColor(${i})"></div>`
+  ).join('');
+}
+function selectColor(i) { selectedColor = i; buildColorPicker(); }
+
+// ── Filters ──
+function buildFilters() {
+  const uniqueYears = [...new Set(works.map(w=>w.year))].sort((a,b)=>b-a);
+  const cats = ['all', ...Object.keys(CATS).filter(c => works.some(w=>w.cat===c))];
+
+  document.getElementById('year-filters').innerHTML =
+    ['all', ...uniqueYears].map(y =>
+      `<button class="filter-btn${filterYear==y?' active':''}" onclick="setYear('${y}')">${y==='all'?'全部':y}</button>`
+    ).join('');
+
+  document.getElementById('cat-filters').innerHTML =
+    cats.map(c =>
+      `<button class="filter-btn${filterCat==c?' active':''}" onclick="setCat('${c}')">${c==='all'?'全部':CATS[c].label}</button>`
+    ).join('');
+}
+
+function setYear(y) { filterYear=y; render(); }
+function setCat(c) { filterCat=c; render(); }
+
+// ── Render ──
+function render() {
+  const filtered = works.filter(w =>
+    (filterYear==='all' || w.year==filterYear) &&
+    (filterCat==='all' || w.cat===filterCat)
+  );
+  const grid = document.getElementById('portfolio-grid');
+  document.getElementById('count-display').textContent = filtered.length;
+  buildFilters();
+
+  if (!filtered.length) {
+    grid.innerHTML = `<div class="empty"><div style="font-size:2.5rem">◎</div><h3>暂无符合条件的作品</h3><p>试试调整筛选条件，或添加新作品</p></div>`;
+    return;
+  }
+
+  const byYear = {};
+  filtered.forEach(w => { (byYear[w.year]=byYear[w.year]||[]).push(w); });
+  const sortedYears = Object.keys(byYear).sort((a,b)=>b-a);
+
+  let html = '';
+  if (filterYear === 'all') {
+    sortedYears.forEach(year => {
+      html += `<div class="year-divider"><span class="year-divider-text">${year}</span><span class="year-divider-line"></span></div>`;
+      byYear[year].forEach(w => { html += cardHTML(w); });
+    });
+  } else {
+    filtered.forEach(w => { html += cardHTML(w); });
+  }
+  grid.innerHTML = html;
+}
+
+function cardHTML(w) {
+  const c = COLORS[w.color] || COLORS[0];
+  const cat = CATS[w.cat] || CATS.other;
+  const link = w.link
+    ? `<a class="card-link" href="${w.link}" target="_blank" onclick="event.stopPropagation()">查看 →</a>`
+    : `<span></span>`;
+
+  const thumbContent = w.img
+    ? `<img src="${w.img}" alt="${w.title}">
+       <div class="thumb-overlay" onclick="openCardImgModal(${w.id})"><span>📷 更换图片</span></div>`
+    : `<div class="thumb-placeholder" onclick="openCardImgModal(${w.id})" style="background:${c.bg}">
+        <span class="thumb-initial" style="color:${c.fg}">${w.title.substring(0,2)}</span>
+        <span class="thumb-upload-hint">点击上传封面图</span>
+       </div>`;
+
+  if (viewMode === 'list') {
+    return `
+    <div class="card">
+      <div class="card-thumb">${thumbContent}</div>
+      <div class="card-content">
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="tag ${cat.cls}">${cat.label}</span>
+            <span class="year-badge">${w.year}</span>
+          </div>
+          <h3>${w.title}</h3>
+          <p>${w.desc||'暂无简介'}</p>
+        </div>
+        <div class="card-footer">${link}<span style="font-size:0.75rem">#${String(w.id).padStart(3,'0')}</span></div>
+      </div>
+    </div>`;
+  }
+
+  return `
+  <div class="card">
+    <div class="card-thumb">${thumbContent}</div>
+    <div class="card-body">
+      <div class="card-meta">
+        <span class="tag ${cat.cls}">${cat.label}</span>
+        <span class="year-badge">${w.year}</span>
+      </div>
+      <h3>${w.title}</h3>
+      <p>${w.desc||'暂无简介'}</p>
+    </div>
+    <div class="card-footer">${link}<span style="font-size:0.75rem">#${String(w.id).padStart(3,'0')}</span></div>
+  </div>`;
+}
+
+function setView(v) {
+  viewMode = v;
+  document.getElementById('portfolio-grid').className = 'portfolio-grid' + (v==='list'?' list-view':'');
+  document.getElementById('btn-grid').classList.toggle('active', v==='grid');
+  document.getElementById('btn-list').classList.toggle('active', v==='list');
+  render();
+}
+
+// ── Add Work Modal ──
+function openModal() {
+  selectedColor = 0;
+  pendingImg = '';
+  buildColorPicker();
+  buildYearSelect();
+  // Reset upload area
+  const area = document.getElementById('modal-upload-area');
+  area.querySelectorAll('img').forEach(el=>el.remove());
+  area.querySelector('.upload-icon').style.display='';
+  area.querySelector('.upload-text').style.display='';
+  document.getElementById('f-title').value = '';
+  document.getElementById('f-desc').value = '';
+  document.getElementById('f-link').value = '';
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+function closeModalOutside(e) { if (e.target===document.getElementById('modal')) closeModal(); }
+
+function triggerUpload() { document.getElementById('img-file-input').click(); }
+
+function handleImageSelect(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    pendingImg = ev.target.result;
+    const area = document.getElementById('modal-upload-area');
+    area.querySelector('.upload-icon').style.display='none';
+    area.querySelector('.upload-text').style.display='none';
+    let img = area.querySelector('img');
+    if (!img) { img = document.createElement('img'); area.prepend(img); }
+    img.src = pendingImg;
+  };
+  reader.readAsDataURL(file);
+  e.target.value = '';
+}
+
+function addWork() {
+  const title = document.getElementById('f-title').value.trim();
+  if (!title) { document.getElementById('f-title').focus(); return; }
+  works.unshift({
+    id: nextId++,
+    title,
+    desc: document.getElementById('f-desc').value.trim(),
+    cat: document.getElementById('f-cat').value,
+    year: parseInt(document.getElementById('f-year').value),
+    link: document.getElementById('f-link').value.trim(),
+    color: selectedColor,
+    img: pendingImg
+  });
+  filterYear='all'; filterCat='all';
+  closeModal();
+  render();
+}
+
+// ── Card Image Modal ──
+function openCardImgModal(id) {
+  editingCardId = id;
+  pendingCardImg = '';
+  const w = works.find(x=>x.id===id);
+  document.getElementById('img-modal-title').textContent = `更换封面：${w.title}`;
+  const area = document.getElementById('img-modal-area');
+  area.querySelectorAll('img').forEach(el=>el.remove());
+  area.querySelector('.upload-icon').style.display='';
+  area.querySelector('.upload-text').style.display='';
+  document.getElementById('img-modal').classList.add('open');
+}
+function closeImgModal(e) { if(e.target===document.getElementById('img-modal')) document.getElementById('img-modal').classList.remove('open'); }
+
+function triggerCardUpload() { document.getElementById('card-img-input').click(); }
+
+function handleCardImageSelect(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    pendingCardImg = ev.target.result;
+    const area = document.getElementById('img-modal-area');
+    area.querySelector('.upload-icon').style.display='none';
+    area.querySelector('.upload-text').style.display='none';
+    let img = area.querySelector('img');
+    if (!img) { img = document.createElement('img'); area.prepend(img); }
+    img.src = pendingCardImg;
+  };
+  reader.readAsDataURL(file);
+  e.target.value='';
+}
+
+function saveCardImage() {
+  if (!pendingCardImg) { document.getElementById('img-modal').classList.remove('open'); return; }
+  const w = works.find(x=>x.id===editingCardId);
+  if (w) { w.img = pendingCardImg; render(); }
+  document.getElementById('img-modal').classList.remove('open');
+}
+
+// ── Init ──
+document.addEventListener('keydown', e => {
+  if (e.key==='Escape') { closeModal(); document.getElementById('img-modal').classList.remove('open'); }
+});
+
+buildYearSelect();
+buildColorPicker();
+render();
+</script>
+</body>
+</html>
